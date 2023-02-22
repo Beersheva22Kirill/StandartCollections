@@ -31,7 +31,7 @@ public class StackInt {
 	
 	public boolean isEmpty () {
 
-		return list.size() < 0;
+		return list.size() < 1;
 	}
 	
 	public Integer getMax() {

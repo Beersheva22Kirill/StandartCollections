@@ -67,8 +67,9 @@ class StandartCollectionTest {
 	@Test
 	void stackTests() {
 		StackInt stack = new StackInt();
-		
+		assertTrue(stack.isEmpty());
 		stack.push(45);
+		assertFalse(stack.isEmpty());
 		stack.push(5);
 		stack.push(2);
 		
