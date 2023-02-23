@@ -12,27 +12,22 @@ public class StackInt {
 	public StackInt() {
 		list = new LinkedList<>();
 		listMax = new LinkedList<>();
-
 	}
 
 	public void push(int element) {
-		if (listMax.isEmpty()) {
+		
+		if (listMax.isEmpty() || element >= listMax.getLast()) {
 			listMax.add(element);
-		} else if (element  > listMax.getLast()) {
-			listMax.add(element);
-		} else {
-			Integer currentMax = listMax.getLast();
-			listMax.add(currentMax);
-		}
+		} 
 		list.add(element);
 	}
 	
 	public int pop() {
-		if (isEmpty()) {
-			throw new NoSuchElementException();
-		}
-		listMax.removeLast();
-		return list.pollLast();
+		int res = list.removeLast();
+			if (res == listMax.getLast() ) {
+			listMax.removeLast();
+			}
+		return res;
 		
 	}
 	
