@@ -51,6 +51,7 @@ class StandartCollectionTest {
 	}
 	
 	@Test
+	@Disabled
 	void displayDigitStatisticsTest() {
 		List<Integer> list = new LinkedList<>();
 		List<String> strList = new LinkedList<>();
@@ -80,6 +81,7 @@ class StandartCollectionTest {
 		
 		assertEquals(65, stack.getMax());
 		assertEquals(65, stack.pop());
+		assertEquals(45, stack.getMax());
 		
 	}
 

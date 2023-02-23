@@ -7,14 +7,23 @@ import java.util.NoSuchElementException;
 
 public class StackInt {
 	private LinkedList<Integer> list;
+	private LinkedList<Integer> listMax;
 	
 	public StackInt() {
 		list = new LinkedList<>();
+		listMax = new LinkedList<>();
 
 	}
 
 	public void push(int element) {
-		
+		if (listMax.isEmpty()) {
+			listMax.add(element);
+		} else if (element  > listMax.getLast()) {
+			listMax.add(element);
+		} else {
+			Integer currentMax = listMax.getLast();
+			listMax.add(currentMax);
+		}
 		list.add(element);
 	}
 	
@@ -22,8 +31,9 @@ public class StackInt {
 		if (isEmpty()) {
 			throw new NoSuchElementException();
 		}
-
+		listMax.removeLast();
 		return list.pollLast();
+		
 	}
 	
 	public boolean isEmpty () {
@@ -36,7 +46,7 @@ public class StackInt {
 			throw new NoSuchElementException();
 		}
 		
-		return list.stream().mapToInt(num -> num).max().getAsInt();
+		return listMax.getLast();
 	}
 
 
