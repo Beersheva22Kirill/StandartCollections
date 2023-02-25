@@ -1,6 +1,5 @@
 package telran.structure;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
