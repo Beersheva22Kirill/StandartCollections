@@ -1,21 +1,17 @@
 package telran.structure;
 
-import java.util.Collection;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.OptionalInt;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
+
 
 
 public class ItemCounter implements MultiCounters {
 	
 	private Map<Object, Integer> items;
-	private Map.Entry<Object, Integer> entry;
 	private TreeMap <Integer, HashSet<Object>> itemsForMax;
 	
 	public ItemCounter() {
@@ -25,27 +21,32 @@ public class ItemCounter implements MultiCounters {
 	
 	@Override
 	public Integer addItem(Object item) {
-	
 		
-		Integer entry = items.get(item);
-		if (entry != null) {
-			items.put(item, ++entry);
-			
-			} else {
-				items.put(item, 1);
-				entry = 1;
-			}	
-		
-		HashSet<Object> set = itemsForMax.get(entry);
-		if (set != null) {
-			set.add(item);
-			} else {
-				set = new HashSet<>();
-				set.add(item);
-				itemsForMax.put(entry, set);
-			}
-			
+		Integer entry = items.getOrDefault(item, 0);
+		removeFromSet(item, entry);	
+		items.put(item, ++entry);	
+		addFromSetIndexes(item, entry);
+					
 		return entry;
+	}
+
+	private void addFromSetIndexes(Object item, Integer entry) {
+		HashSet<Object> set = itemsForMax.get(entry);		
+		if (set == null) {
+			set = new HashSet<>();
+			itemsForMax.put(entry, set);
+			} 
+		set.add(item);
+	}
+
+	private void removeFromSet(Object item, Integer entry) {
+		HashSet<Object> removedSet = itemsForMax.get(entry);
+		if (removedSet != null) {
+			removedSet.remove(item);
+			if (removedSet.isEmpty()) {
+				itemsForMax.remove(entry);
+			}
+		}
 	}
 
 	@Override
@@ -74,8 +75,9 @@ public class ItemCounter implements MultiCounters {
 
 	@Override
 	public Set<Object> getMaxItems() {
-	
-		return itemsForMax.get(itemsForMax.lastKey());
+		var set = itemsForMax.get(itemsForMax.lastKey());
+		// var заменяет запись Set<Object> set
+		return set != null ? set : Collections.emptySet();
 	}
 
 
