@@ -31,6 +31,7 @@ class WordsTest {
 		String[] expected3 = {};
 		assertArrayEquals(expected, str.getWordsByPrefix("T").toArray());
 		assertArrayEquals(expected2, str.getWordsByPrefix("f").toArray());
+		assertArrayEquals(expected2, str.getWordsByPrefix("F").toArray());
 		assertArrayEquals(expected3, str.getWordsByPrefix("VV").toArray());
 		
 	}
