@@ -2,8 +2,6 @@ package telran.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.*;
 import telran.util.WordsIMPL;
 
@@ -17,6 +15,7 @@ class WordsTest {
 		str.addWord("Three");
 		str.addWord("Four");
 		str.addWord("Five");
+		str.addWord("fFive");
 	}
 
 	@Test
@@ -27,12 +26,11 @@ class WordsTest {
 	
 	@Test
 	void getWordsByPrefixTest() {
-		List<String> list = new ArrayList<>();
 		String[] expected = {"Two","Three"};
-		String[] expected2 = {"First","Four","Five"};
+		String[] expected2 = {"First","Four","Five","fFive"};
 		String[] expected3 = {};
 		assertArrayEquals(expected, str.getWordsByPrefix("T").toArray());
-		assertArrayEquals(expected2, str.getWordsByPrefix("F").toArray());
+		assertArrayEquals(expected2, str.getWordsByPrefix("f").toArray());
 		assertArrayEquals(expected3, str.getWordsByPrefix("VV").toArray());
 		
 	}
