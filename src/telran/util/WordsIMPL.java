@@ -3,8 +3,9 @@ package telran.util;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.TreeMap;
 
-public class WordsIMPL implements Words {
+public class WordsIMPL implements Words {	
 	LinkedHashSet<String> words = new LinkedHashSet<>();
 	LinkedHashSet<String> wordsInUpper = new LinkedHashSet<>();
 	
@@ -21,14 +22,13 @@ public class WordsIMPL implements Words {
 	}
 
 	private boolean isEquals(String word) {
-		
 		return wordsInUpper.contains(word.toUpperCase());
 	}
 
 	@Override
 	public List<String> getWordsByPrefix(String prefix) {
 		List<String> res = new ArrayList<>();
-		words.stream().filter(n -> n.startsWith(prefix)).forEach(n -> res.add(n));
+		words.stream().filter(n -> n.toUpperCase().startsWith(prefix.toUpperCase())).forEach(n -> res.add(n));
 		return res;
 	}
 
